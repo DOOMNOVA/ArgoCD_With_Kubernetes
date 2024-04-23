@@ -1,7 +1,6 @@
 name: Deploy
 
-on:
-  # No changes
+on: push
 
 jobs:
   deploy:
