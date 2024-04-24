@@ -18,4 +18,4 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags: doomnova/webapp-argocd:v1
+          tags: doomnova/webapp-argocd
