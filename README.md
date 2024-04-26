@@ -141,13 +141,14 @@ Now to deploy the web application using the initial image, the below code can ru
  ```sh
   kubectl -f apply application.yaml
   ```
-we can see the webapp deployment 
+we can see the webapp deployed user profile application page below.
 
 ![alt text](results/webapp_latest.png)
-![alt text](results/inital_app_latest.png)
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+Further as shown in below figure, using the Argo CD UI we can see the deployed application with its different components.
+
+![alt text](results/inital_app_latest.png)
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -158,7 +159,8 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 ## Steps Involved - With Argo Rollouts
 In this section, we will look at the steps taken to change the current web application to include a canary release rollout strategy using Argo CD Rollouts.
 
-* Most of the files are similar to the task without the
+* Most of the files are similar to the previous task without the rollouts. Only difference is in the config file `webappdeployment.yaml`, in which a kubernetes `Rollout`resource type is used to control the canary release. The rollout will be trigger by updating the web app image from `doomnova/webapp-argocd:latest` to `doomnova/webapp-argocd:v1`. This image will be known as the canary image in this project.
+* The rollout strategy is based on the one defined in the official docs of [canary release](https://argo-rollouts.readthedocs.io/en/stable/getting-started/).
 
 
 
