@@ -129,13 +129,20 @@ In the section, the steps involved to create this project is defined.
 * The initial step involves pushing a docker container image of the web application to `DockerHub`. So, the docker files - `Dockerfile` and`docker-compose.yaml` is created. Further, in order to streamline the process a github action workflow file - `main.yaml` is created to push a new image to `DockerHub` everytime there is change to the source code repo.
 
 * Next in the `Minikube` cluster I have initially created, a new namespace `myapp` is created for the webapplication and the config files will be run inside this. The Kubernetics manifest files in the  [Config repo](https://github.com/DOOMNOVA/A_P_config_argocd.git) uses the image - `doomnova/webapp-argocd:latest` , which was  prevoiusly pushed to the `Dockerhub` . This image will be the know as the initial  web app container image in this project.
-* Since I am using a `MongoDB` database for the webapp, the Config files in the [repo](https://github.com/DOOMNOVA/A_P_config_argocd.git)- `mongo.yaml`, `mongo-secret.yaml` and `mongo-config.yaml` are used to define database in the cluster.  The `webappdeployment.yaml` is used to deploy the login page app developed in this project. For the  web application, there are two `replicas:2` defined in this project. Further, inorder to access the app in the browser, the `NodePort` service is defined in the  `webappdeployment.yaml`. Finally, the `application.yaml` is used to defined the entire application in the `Minikube` cluster. In this file, we can specify the Config file repo that should be watched  `Argo CD` to makes change to the application in the cluster. 
+* Since I am using a `MongoDB` database for the webapp, the Config files in the [repo](https://github.com/DOOMNOVA/A_P_config_argocd.git)- `mongo.yaml`, `mongo-secret.yaml` and `mongo-config.yaml` are used to define database in the cluster.  The `webappdeployment.yaml` is used to deploy the login page app developed in this project. For the  web application, there are two `replicas:2` defined in this project. Further, inorder to access the app in the browser, the `NodePort` service is defined in the  `webappdeployment.yaml`. Note that inorder to use the file for this task, uncomment  code for the kubernetes resource type `Deployment` and comment the kubernetes resource type `Rollout` in the latest `webappdeployment.yaml`file in the Config repo.
+* Finally, the `application.yaml` is used to defined the entire application in the `Minikube` cluster. In this file, we can specify the Config file repo that should be watched  by `Argo CD` to makes change to the application in the cluster. 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 <!-- USAGE EXAMPLES -->
 ## Results - Without Argo Rollouts
+Now to deploy the web application using the initial image, the below code can run in the terminal:
+ ```sh
+  kubectl -f apply application.yaml
+  ```
+we can see the webapp deployment 
+
 ![alt text](results/webapp_latest.png)
 ![alt text](results/inital_app_latest.png)
 Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
@@ -150,6 +157,8 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 
 ## Steps Involved - With Argo Rollouts
 In this section, we will look at the steps taken to change the current web application to include a canary release rollout strategy using Argo CD Rollouts.
+
+* Most of the files are similar to the task without the
 
 
 
